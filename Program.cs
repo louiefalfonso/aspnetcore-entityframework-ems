@@ -1,4 +1,5 @@
 using EmployeeManagement.Data;
+using EmployeeManagement.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.InMemory;
 
@@ -24,6 +25,15 @@ namespace EmployeeManagement
                     });
                 }
             );
+
+            // add & configure repository to the dependency injection
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+            // configure services to add controllers
+            builder.Services.AddControllers();
+
+            // add & configure swagger
+            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 

@@ -7,7 +7,7 @@ namespace EmployeeManagement.Repositories
     // use repository design pattern
     public class EmployeeRepository : IEmployeeRepository
     {
-        // create an access to the DbContext from repository
+        // inject AppDbContext
         private readonly AppDbContext _context;
         public EmployeeRepository(AppDbContext context) {  _context = context; }
 
