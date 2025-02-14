@@ -32,15 +32,30 @@ namespace EmployeeManagement
             // configure services to add controllers
             builder.Services.AddControllers();
 
+           // add & configure API endpoints
+            builder.Services.AddEndpointsApiExplorer();
+            
             // add & configure swagger
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
+            // to check if app environment is in development only
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                    c.RoutePrefix = string.Empty;
+                });
+            }
+
             //specify the kind of CORS policy to use
             app.UseCors("CORSPolicy");
 
-            app.MapGet("/", () => "Hello World!");
+            // call the endpoints for controllers and actions
+            app.MapControllers();
 
             app.Run();
         }
